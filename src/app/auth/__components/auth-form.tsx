@@ -7,17 +7,29 @@ import { Button } from "@/components/ui/button";
 import { SVGProps } from "react";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
+import { toast } from "@/components/ui/use-toast";
 
 export function AuthForm() {
 
     const form = useForm()
 
     const handleSubmit = form.handleSubmit(async(data) => {
-        console.log(data);
+        try {
+            await signIn("email", {
+                    email: data.email,
+                    redirect: false
+            })
 
-        await signIn("email", {
-            email: data.email
-        })
+            toast({
+                title: "Email sent",
+                description: "Check your email for a magic link to sign in.",
+            })
+        } catch (error) {
+            toast({
+                title: "Error",
+                description: "An error occurred while sending the email.",
+            })
+        }
     });
 
 
@@ -47,7 +59,7 @@ export function AuthForm() {
                     Send Magic Link
                 </Button>
             </form>
-            <div className="rounded-md bg-green-50 p-4 dark:bg-green-900/20">
+            {/* <div className="rounded-md bg-green-50 p-4 dark:bg-green-900/20">
                 <div className="flex">
                     <div className="flex-shrink-0">
                         <CheckIcon className="h-5 w-5 text-green-400 dark:text-green-500" />
@@ -59,7 +71,7 @@ export function AuthForm() {
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }
