@@ -1,10 +1,26 @@
+"use client"
+
 /* eslint-disable react/no-unescaped-entities */
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SVGProps } from "react";
+import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
 
 export function AuthForm() {
+
+    const form = useForm()
+
+    const handleSubmit = form.handleSubmit(async(data) => {
+        console.log(data);
+
+        await signIn("email", {
+            email: data.email
+        })
+    });
+
+
     return (
         <div className="mx-auto max-w-md space-y-6">
             <div className="space-y-2 text-center">
@@ -13,7 +29,7 @@ export function AuthForm() {
                     Enter your email to sign in with a magic link.
                 </p>
             </div>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
                 <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
                     <Input
@@ -21,6 +37,7 @@ export function AuthForm() {
                         type="email"
                         placeholder="m@example.com"
                         required
+                        {...form.register("email")}
                     />
                 </div>
                 <Button
