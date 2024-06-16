@@ -4,6 +4,7 @@ import {
     DashboardPageHeaderTitle,
     DashboardPageMain,
 } from "@/components/dashboard/page";
+import { ToDoDataTable } from "./__components/to-do-data-table";
 
 export default async function AppPage() {
     return (
@@ -12,7 +13,7 @@ export default async function AppPage() {
                 <DashboardPageHeaderTitle>Tarefas</DashboardPageHeaderTitle>
             </DashboardPageHeader>
             <DashboardPageMain>
-                <h1>Tarefas</h1>
+                <ToDoDataTable />
             </DashboardPageMain>
         </DashboardPage>
     );

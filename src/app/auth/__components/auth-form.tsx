@@ -15,7 +15,7 @@ export function AuthForm() {
 
     const handleSubmit = form.handleSubmit(async(data) => {
         try {
-            await signIn("email", {
+            await signIn("nodemailer", {
                     email: data.email,
                     redirect: false
             })
@@ -56,8 +56,9 @@ export function AuthForm() {
                     <Button
                         type="submit"
                         className="w-full"
+                        disabled={form.formState.isSubmitting}
                     >
-                        Send Magic Link
+                        {form.formState.isSubmitting ? "Sending..." : "Send Magic Link"}
                     </Button>
                 </form>
             </div>
