@@ -22,11 +22,13 @@ export function AuthForm() {
 
             toast({
                 title: "Email sent",
+                variant: "success",
                 description: "Check your email for a magic link to sign in.",
             })
         } catch (error) {
             toast({
                 title: "Error",
+                variant: "destructive",
                 description: "An error occurred while sending the email.",
             })
         }

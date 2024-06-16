@@ -20,7 +20,6 @@ import {
 } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
@@ -39,139 +38,143 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { ToDo } from "../types";
+import { useRouter } from "next/navigation";
+import { deleteToDo, upsertToDo } from "../actions";
+import { toast } from "@/components/ui/use-toast";
 
-export type ToDo = {
-    id: string;
-    title: string;
-    description?: string;
-    createdAt: Date;
-    updatedAt: Date;
-    finishedAt: Date;
+type ToDoDataTableProps = {
+    data: ToDo[];
 };
 
+export function ToDoDataTable({ data }: ToDoDataTableProps) {
+    const router = useRouter();
 
-const data: ToDo[] = [
-{
-    id: "1",
-    title: "Comprar leite",
-    description: "Comprar leite desnatado no supermercado",
-    createdAt: new Date('2023-09-01T09:00:00'),
-    updatedAt: new Date('2023-09-01T12:00:00'),
-    finishedAt: new Date('2023-09-01T13:00:00'),
-},
-{
-    id: "2",
-    title: "Estudar React",
-    description: "Revisar os conceitos de hooks em React",
-    createdAt: new Date('2023-09-02T10:00:00'),
-    updatedAt: new Date('2023-09-02T15:00:00'),
-    finishedAt: new Date('2023-09-02T18:00:00'),
-},
-{
-    id: "3",
-    title: "Ler um livro",
-    description: "Ler 30 páginas do livro de ficção científica",
-    createdAt: new Date('2023-09-03T11:00:00'),
-    updatedAt: new Date('2023-09-03T16:00:00'),
-    finishedAt: new Date('2023-09-03T20:00:00'),
-},
-{
-    id: "4",
-    title: "Praticar Yoga",
-    description: "Fazer uma sessão de 30 minutos de yoga",
-    createdAt: new Date('2023-09-04T08:00:00'),
-    updatedAt: new Date('2023-09-04T09:00:00'),
-    finishedAt: new Date('2023-09-04T09:30:00'),
-},
-{
-    id: "5",
-    title: "Preparar jantar",
-    description: "Preparar uma lasanha para o jantar",
-    createdAt: new Date('2023-09-05T17:00:00'),
-    updatedAt: new Date('2023-09-05T18:00:00'),
-    finishedAt: new Date('2023-09-05T19:00:00'),
-}
-];
-
-export const columns: ColumnDef<ToDo>[] = [
-    {
-        accessorKey: "status",
-        header: "Status",
-        cell: ({ row }) => (
-            <div className="capitalize"></div>
-        ),
-    },
-    {
-        accessorKey: "title",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="link"
-                    onClick={() =>
-                        column.toggleSorting(column.getIsSorted() === "asc")
-                    }
-                >
-                    Title
-                    <CaretSortIcon className="ml-2 h-4 w-4" />
-                </Button>
-            );
-        },
-        cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("title")}</div>
-        ),
-    },
-    {
-        accessorKey: "createdAt",
-        header: () => <div className="text-right">Created At</div>,
-        cell: ({ row }) => {
-            return <div className="text-right font-medium">{row.original.createdAt.toLocaleDateString()}</div>;
-        },
-    },
-    {
-        id: "actions",
-        enableHiding: false,
-        cell: ({ row }) => {
-            const payment = row.original;
-
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button
-                            variant="ghost"
-                            className="h-8 w-8 p-0"
-                        >
-                            <span className="sr-only">Open menu</span>
-                            <DotsHorizontalIcon className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() =>
-                                navigator.clipboard.writeText(payment.id)
-                            }
-                        >
-                            Copy todo ID
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>Mark as done</DropdownMenuItem>
-                        <DropdownMenuItem>
-                            Delete
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            );
-        },
-    },
-];
-
-export function ToDoDataTable() {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] =
         React.useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] =
         React.useState<VisibilityState>({});
     const [rowSelection, setRowSelection] = React.useState({});
+
+    const handleDeleteToDo = async (toDo: ToDo) => {
+        await deleteToDo({ id: toDo.id });
+        router.refresh();
+
+        toast({
+            title: "To-do deleted",
+            variant: "success",
+            description: "Your to-do has been deleted",
+        });
+    };
+
+    const handleMarkAsDone = async (toDo: ToDo) => {
+        const doneAt = toDo.doneAt ? null : new Date();
+        await upsertToDo({ id: toDo.id, doneAt });
+        router.refresh();
+
+        toast({
+            title: "To-do marked as done",
+            variant: "success",
+            description: "Your to-do has been marked as done",
+        });
+    };
+
+    const columns: ColumnDef<ToDo>[] = [
+        {
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ row }) => {
+                const { doneAt } = row.original;
+                const status: "waiting" | "done" = doneAt ? "done" : "waiting";
+                const variant: "outline" | "secondary" = doneAt
+                    ? "secondary"
+                    : "outline";
+
+                return (
+                    <Badge
+                        className="capitalize"
+                        variant={variant}
+                    >
+                        {status}
+                    </Badge>
+                );
+            },
+        },
+        {
+            accessorKey: "title",
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="link"
+                        onClick={() =>
+                            column.toggleSorting(column.getIsSorted() === "asc")
+                        }
+                    >
+                        Title
+                        <CaretSortIcon className="ml-2 h-4 w-4" />
+                    </Button>
+                );
+            },
+            cell: ({ row }) => (
+                <div className="capitalize">{row.getValue("title")}</div>
+            ),
+        },
+        {
+            accessorKey: "createdAt",
+            header: () => <div className="text-right">Created At</div>,
+            cell: ({ row }) => {
+                return (
+                    <div className="text-right font-medium">
+                        {row.original.createdAt.toLocaleDateString()}
+                    </div>
+                );
+            },
+        },
+        {
+            id: "actions",
+            enableHiding: false,
+            cell: ({ row }) => {
+                const toDo = row.original;
+
+                return (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button
+                                variant="ghost"
+                                className="h-8 w-8 p-0"
+                            >
+                                <span className="sr-only">Open menu</span>
+                                <DotsHorizontalIcon className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuItem
+                                onClick={() =>
+                                    navigator.clipboard.writeText(toDo.id)
+                                }
+                            >
+                                Copy todo ID
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem
+                                onClick={() => handleMarkAsDone(toDo)}
+                            >
+                                Mark as done
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                                onClick={() => handleDeleteToDo(toDo)}
+                            >
+                                Delete
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                );
+            },
+        },
+    ];
 
     const table = useReactTable({
         data,
@@ -196,15 +199,15 @@ export function ToDoDataTable() {
         <div className="w-full">
             <div className="flex items-center py-4">
                 <Input
-                    placeholder="Filter emails..."
+                    placeholder="Filter titles..."
                     value={
                         (table
-                            .getColumn("email")
+                            .getColumn("title")
                             ?.getFilterValue() as string) ?? ""
                     }
                     onChange={(event) =>
                         table
-                            .getColumn("email")
+                            .getColumn("title")
                             ?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
@@ -218,6 +221,9 @@ export function ToDoDataTable() {
                             Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
+                    {/* <ToDoUpsertSheet>
+                        <Button variant="outline" >Add todo</Button>
+                    </ToDoUpsertSheet> */}
                     <DropdownMenuContent align="end">
                         {table
                             .getAllColumns()
