@@ -1,22 +1,27 @@
 "use client";
 
 import {
-    Sidebar,
-    SidebarFooter,
-    SidebarHeader,
-    SidebarMain,
-    SidebarNav,
-    SidebarNavHeader,
-    SidebarNavHeaderTitle,
-    SidebarNavLink,
-    SidebarNavMain,
+    DashboardSidebar,
+    DashboardSidebarFooter,
+    DashboardSidebarHeader,
+    DashboardSidebarMain,
+    DashboardSidebarNav,
+    DashboardSidebarNavHeader,
+    DashboardSidebarNavHeaderTitle,
+    DashboardSidebarNavLink,
+    DashboardSidebarNavMain,
 } from "@/components/dashboard/sidebar";
 import { GearIcon, HomeIcon } from "@radix-ui/react-icons";
 import { usePathname } from "next/navigation";
 import { UserDropdown } from "./user-dropdown";
 import { Logo } from "@/components/logo";
+import { Session } from "next-auth";
 
-export function MainSidebar() {
+type MainSidebarProps = {
+    user: Session['user']
+}
+
+export function MainSidebar({ user }: MainSidebarProps) {
 
     const pathname = usePathname();
 
@@ -25,41 +30,41 @@ export function MainSidebar() {
     };
 
     return (
-        <Sidebar>
-            <SidebarHeader>
+        <DashboardSidebar>
+            <DashboardSidebarHeader>
                 <Logo />
-            </SidebarHeader>
+            </DashboardSidebarHeader>
 
-            <SidebarMain className="flex flex-col flex-grow">
-                <SidebarNav>
-                    <SidebarNavMain>
-                        <SidebarNavLink className="flex items-center gap-2" href="/app" active={isActive("/app")}>
+            <DashboardSidebarMain className="flex flex-col flex-grow">
+                <DashboardSidebarNav>
+                    <DashboardSidebarNavMain>
+                        <DashboardSidebarNavLink className="flex items-center gap-2" href="/app" active={isActive("/app")}>
                             <HomeIcon />Tarefas
-                        </SidebarNavLink>
-                        <SidebarNavLink className="flex items-center gap-2" href="/app/settings" active={isActive("/app/settings")}>
+                        </DashboardSidebarNavLink>
+                        <DashboardSidebarNavLink className="flex items-center gap-2" href="/app/settings" active={isActive("/app/settings")}>
                             <GearIcon />Configuraçes
-                        </SidebarNavLink>
-                    </SidebarNavMain>
-                </SidebarNav>
+                        </DashboardSidebarNavLink>
+                    </DashboardSidebarNavMain>
+                </DashboardSidebarNav>
 
-                <SidebarNav className="mt-auto">
-                    <SidebarNavMain>
-                        <SidebarNavHeader>
-                            <SidebarNavHeaderTitle>
+                <DashboardSidebarNav className="mt-auto">
+                    <DashboardSidebarNavMain>
+                        <DashboardSidebarNavHeader>
+                            <DashboardSidebarNavHeaderTitle>
                                 Links extras
-                            </SidebarNavHeaderTitle>
-                        </SidebarNavHeader>
-                        <SidebarNavLink href="/">
+                            </DashboardSidebarNavHeaderTitle>
+                        </DashboardSidebarNavHeader>
+                        <DashboardSidebarNavLink href="/">
                             Precisa de ajuda?
-                        </SidebarNavLink>
-                        <SidebarNavLink href="/">Site</SidebarNavLink>
-                    </SidebarNavMain>
-                </SidebarNav>
-            </SidebarMain>
+                        </DashboardSidebarNavLink>
+                        <DashboardSidebarNavLink href="/">Site</DashboardSidebarNavLink>
+                    </DashboardSidebarNavMain>
+                </DashboardSidebarNav>
+            </DashboardSidebarMain>
 
-            <SidebarFooter>
-                <UserDropdown />
-            </SidebarFooter>
-        </Sidebar>
+            <DashboardSidebarFooter>
+                <UserDropdown user={user} />
+            </DashboardSidebarFooter>
+        </DashboardSidebar>
     );
 }

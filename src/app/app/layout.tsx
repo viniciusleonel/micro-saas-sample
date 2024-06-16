@@ -1,16 +1,18 @@
+import { auth } from "@/services/auth";
 import { MainSidebar } from "./__components/main-sidebar";
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
-    return (
-    <div className="grid grid-cols-[16rem_1fr] gap-4">
-        
-        <MainSidebar />
+export default async function AppLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    const session = await auth();
 
-        <main>
-            {children}
-        </main>
-        
-    </div>
-        
+    return (
+        <div className="grid grid-cols-[16rem_1fr]">
+            <MainSidebar user={session?.user} />
+
+            <main>{children}</main>
+        </div>
     );
 }
