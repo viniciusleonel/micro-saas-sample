@@ -44,11 +44,11 @@ export function ToDoUpsertSheet({
     const ref = useRef<HTMLDivElement>(null);
     const router = useRouter();
 
-    const form = useForm({
+    const form = useForm<z.infer<typeof upsertToDoSchema>>({
         resolver: zodResolver(upsertToDoSchema),
     });
 
-    const onSubmit = form.handleSubmit(async (data) => {
+    const onSubmit = form.handleSubmit(async (data: z.infer<typeof upsertToDoSchema>) => {
         await upsertToDo(data);
         router.refresh();
         
