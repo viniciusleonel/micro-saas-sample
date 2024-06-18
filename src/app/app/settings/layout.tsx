@@ -19,9 +19,11 @@ export default function SettingsLayout({
                 </DashboardPageHeaderTitle>
             </DashboardPageHeader>
             <DashboardPageMain>
-                <div className="grid grid-cols-[16rem_1fr] gap-12">
-                    <SettingsSidebar />
-                    <div>{children}</div>
+                <div className="container max-w-screen-lg">
+                    <div className="grid grid-cols-[16rem_1fr] gap-6 ">
+                        <SettingsSidebar />
+                        <div>{children}</div>
+                    </div>
                 </div>
             </DashboardPageMain>
         </DashboardPage>

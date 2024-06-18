@@ -57,6 +57,7 @@ export function ToDoUpsertSheet({
         toast({
             title: "To-do updated",
             description: "Your to-do has been updated",
+            variant: "success",
         });
     });
 
