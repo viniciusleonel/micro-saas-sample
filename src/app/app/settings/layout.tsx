@@ -5,6 +5,7 @@ import {
     DashboardPageMain,
 } from "@/components/dashboard/page";
 import { SettingsSidebar } from "./__components/settings-sidebar";
+import ThemeForm from "./theme/__components/theme-switch";
 
 export default function SettingsLayout({
     children,

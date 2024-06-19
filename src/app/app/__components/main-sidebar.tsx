@@ -16,13 +16,13 @@ import { usePathname } from "next/navigation";
 import { UserDropdown } from "./user-dropdown";
 import { Logo } from "@/components/logo";
 import { Session } from "next-auth";
+import ThemeSwitch from "../settings/theme/__components/theme-switch";
 
 type MainSidebarProps = {
-    user: Session['user']
-}
+    user: Session["user"];
+};
 
 export function MainSidebar({ user }: MainSidebarProps) {
-
     const pathname = usePathname();
 
     const isActive = (path: string) => {
@@ -38,11 +38,21 @@ export function MainSidebar({ user }: MainSidebarProps) {
             <DashboardSidebarMain className="flex flex-col flex-grow">
                 <DashboardSidebarNav>
                     <DashboardSidebarNavMain>
-                        <DashboardSidebarNavLink className="flex items-center gap-2" href="/app" active={isActive("/app")}>
-                            <HomeIcon />Tarefas
+                        <DashboardSidebarNavLink
+                            className="flex items-center gap-2"
+                            href="/app"
+                            active={isActive("/app")}
+                        >
+                            <HomeIcon />
+                            Tarefas
                         </DashboardSidebarNavLink>
-                        <DashboardSidebarNavLink className="flex items-center gap-2" href="/app/settings" active={isActive("/app/settings")}>
-                            <GearIcon />Configuraçes
+                        <DashboardSidebarNavLink
+                            className="flex items-center gap-2"
+                            href="/app/settings"
+                            active={isActive("/app/settings")}
+                        >
+                            <GearIcon />
+                            Configurações
                         </DashboardSidebarNavLink>
                     </DashboardSidebarNavMain>
                 </DashboardSidebarNav>
@@ -57,13 +67,16 @@ export function MainSidebar({ user }: MainSidebarProps) {
                         <DashboardSidebarNavLink href="/">
                             Precisa de ajuda?
                         </DashboardSidebarNavLink>
-                        <DashboardSidebarNavLink href="/">Site</DashboardSidebarNavLink>
+                        <DashboardSidebarNavLink href="/">
+                            Site{" "}
+                        </DashboardSidebarNavLink>
                     </DashboardSidebarNavMain>
                 </DashboardSidebarNav>
             </DashboardSidebarMain>
 
-            <DashboardSidebarFooter>
+            <DashboardSidebarFooter className="flex ">
                 <UserDropdown user={user} />
+                <ThemeSwitch />
             </DashboardSidebarFooter>
         </DashboardSidebar>
     );

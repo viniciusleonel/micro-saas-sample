@@ -55,8 +55,8 @@ export function ToDoUpsertSheet({
         ref.current?.click();
 
         toast({
-            title: "To-do updated",
-            description: "Your to-do has been updated",
+            title: "Tarefa atualizada",
+            description: "Sua tarefa foi atualizada",
             variant: "success",
         });
     });
@@ -73,10 +73,9 @@ export function ToDoUpsertSheet({
                         className="space-y-8 h-screen"
                     >
                         <SheetHeader>
-                            <SheetTitle>Create ToDo</SheetTitle>
+                            <SheetTitle>Criar Tarefa</SheetTitle>
                             <SheetDescription>
-                                Add or edit your ToDo here. Click save when
-                                you're done.
+                                Adicione ou edite sua tarefa aqui. Clique em salvar quando terminar.
                             </SheetDescription>
                         </SheetHeader>
 
@@ -85,15 +84,15 @@ export function ToDoUpsertSheet({
                             name="title"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Title</FormLabel>
+                                    <FormLabel>Título</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Enter your title here"
+                                            placeholder="Digite o título aqui"
                                             {...field}
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        This is the title of your ToDo.
+                                        Este é o título da sua tarefa.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -101,7 +100,7 @@ export function ToDoUpsertSheet({
                         />
 
                         <SheetFooter className="mt-auto">
-                            <Button type="submit">Save changes</Button>
+                            <Button type="submit">Salvar alterações</Button>
                         </SheetFooter>
                     </form>
                 </Form>

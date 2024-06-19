@@ -17,11 +17,11 @@ export default async function AppPage() {
     
     return (
         <DashboardPage>
-            <DashboardPageHeader>
+            <DashboardPageHeader className="!py-2">
                 <DashboardPageHeaderTitle>Tarefas</DashboardPageHeaderTitle>
                 <DashboardPageHeaderNav>
                     <ToDoUpsertSheet>
-                        <Button variant="outline" size="sm">
+                        <Button className="" variant="outline" size="sm">
                             <PlusIcon className="w-4 h-4 mr-3" />
                             Add todo
                         </Button>

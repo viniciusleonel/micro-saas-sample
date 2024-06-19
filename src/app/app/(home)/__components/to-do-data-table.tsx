@@ -63,9 +63,9 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
         router.refresh();
 
         toast({
-            title: "To-do deleted",
+            title: "Tarefa excluída",
             variant: "success",
-            description: "Your to-do has been deleted",
+            description: "Sua tarefa foi excluída com sucesso",
         });
     };
 
@@ -75,9 +75,9 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
         router.refresh();
 
         toast({
-            title: "To-do marked as done",
+            title: "Tarefa marcada como concluída",
             variant: "success",
-            description: "Your to-do has been marked as done",
+            description: "Sua tarefa foi marcada como concluída",
         });
     };
 
@@ -112,7 +112,7 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                             column.toggleSorting(column.getIsSorted() === "asc")
                         }
                     >
-                        Title
+                        Título
                         <CaretSortIcon className="ml-2 h-4 w-4" />
                     </Button>
                 );
@@ -123,7 +123,7 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
         },
         {
             accessorKey: "createdAt",
-            header: () => <div className="text-right">Created At</div>,
+            header: () => <div className="text-right">Criado em</div>,
             cell: ({ row }) => {
                 return (
                     <div className="text-right font-medium">
@@ -145,29 +145,29 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                                 variant="ghost"
                                 className="h-8 w-8 p-0"
                             >
-                                <span className="sr-only">Open menu</span>
+                                <span className="sr-only">Abrir menu</span>
                                 <DotsHorizontalIcon className="h-4 w-4" />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuLabel>Ações</DropdownMenuLabel>
                             <DropdownMenuItem
                                 onClick={() =>
                                     navigator.clipboard.writeText(toDo.id)
                                 }
                             >
-                                Copy todo ID
+                                Copiar ID da tarefa
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
                                 onClick={() => handleMarkAsDone(toDo)}
                             >
-                                Mark as done
+                                Marcar como concluída
                             </DropdownMenuItem>
                             <DropdownMenuItem
                                 onClick={() => handleDeleteToDo(toDo)}
                             >
-                                Delete
+                                Excluir
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -199,7 +199,7 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
         <div className="w-full">
             <div className="flex items-center py-4">
                 <Input
-                    placeholder="Filter titles..."
+                    placeholder="Filtrar títulos..."
                     value={
                         (table
                             .getColumn("title")
@@ -218,11 +218,11 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                             variant="outline"
                             className="ml-auto"
                         >
-                            Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
+                            Colunas <ChevronDownIcon className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     {/* <ToDoUpsertSheet>
-                        <Button variant="outline" >Add todo</Button>
+                        <Button variant="outline" >Adicionar tarefa</Button>
                     </ToDoUpsertSheet> */}
                     <DropdownMenuContent align="end">
                         {table
@@ -245,7 +245,7 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <div className="rounded-md border">
+            <div className="rounded-md border dark:border-secondary">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -256,10 +256,10 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
-                                                      header.column.columnDef
-                                                          .header,
-                                                      header.getContext()
-                                                  )}
+                                                    header.column.columnDef
+                                                        .header,
+                                                    header.getContext()
+                                                )}
                                         </TableHead>
                                     );
                                 })}
@@ -291,7 +291,7 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                                     colSpan={columns.length}
                                     className="h-24 text-center"
                                 >
-                                    No results.
+                                    Sem resultados.
                                 </TableCell>
                             </TableRow>
                         )}
@@ -300,8 +300,8 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
                 <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
+                    {table.getFilteredSelectedRowModel().rows.length} de{" "}
+                    {table.getFilteredRowModel().rows.length} linha(s) selecionada(s).
                 </div>
                 <div className="space-x-2">
                     <Button
@@ -310,7 +310,7 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                         onClick={() => table.previousPage()}
                         disabled={!table.getCanPreviousPage()}
                     >
-                        Previous
+                        Anterior
                     </Button>
                     <Button
                         variant="outline"
@@ -318,10 +318,11 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                         onClick={() => table.nextPage()}
                         disabled={!table.getCanNextPage()}
                     >
-                        Next
+                        Próximo
                     </Button>
                 </div>
             </div>
         </div>
-    );
+    )
 }
+

@@ -51,8 +51,8 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
             router.refresh();
 
             toast({
-                title: "Profile updated",
-                description: "Your profile has been updated",
+                title: "Perfil atualizado",
+                description: "Seu perfil foi atualizado com sucesso",
                 variant: "success",
             });
         }
@@ -66,9 +66,9 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
             >
                 <Sheet>
                     <SheetHeader>
-                        <SheetTitle>Update Profile</SheetTitle>
+                        <SheetTitle>Atualizar Perfil</SheetTitle>
                         <SheetDescription>
-                            Edit your profile here. Click save when you're done.
+                            Edite seu perfil aqui. Clique em salvar quando terminar.
                         </SheetDescription>
                     </SheetHeader>
                     <FormField
@@ -76,15 +76,15 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
                         name="name"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Name</FormLabel>
+                                <FormLabel>Nome</FormLabel>
                                 <FormControl>
                                     <Input
-                                        placeholder="Enter your title here"
+                                        placeholder="Digite seu nome aqui"
                                         {...field}
                                     />
                                 </FormControl>
                                 <FormDescription>
-                                    This is the name that shows on your profile.
+                                    Este é o nome que aparecerá no seu perfil.
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>
@@ -98,15 +98,14 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
                                     <Input
-                                        placeholder="Enter your title here"
+                                        placeholder="Digite seu email aqui"
                                         {...field}
                                         readOnly
                                         className="bg-gray-100 text-gray-500"
                                     />
                                 </FormControl>
                                 <FormDescription>
-                                    This is your email. To change it, contact
-                                    our support team.
+                                    Este é o seu email. Para alterá-lo, entre em contato com nosso suporte.
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>
@@ -118,7 +117,7 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
                         type="submit"
                         disabled={form.formState.isSubmitting}
                         >
-                            {form.formState.isSubmitting ? "Loading..." : "Save changes"}
+                            {form.formState.isSubmitting ? "Salvando..." : "Salvar alterações"}
                         </Button>
                     </SheetFooter>
                 </Sheet>
