@@ -21,15 +21,15 @@ export function AuthForm() {
             })
 
             toast({
-                title: "Email sent",
+                title: "Email enviado",
                 variant: "success",
-                description: "Check your email for a magic link to sign in.",
+                description: "Verifique seu email para um link mágico de acesso.",
             })
         } catch (error) {
             toast({
-                title: "Error",
+                title: "Erro",
                 variant: "destructive",
-                description: "An error occurred while sending the email.",
+                description: "Ocorreu um erro ao enviar o email.",
             })
         }
     });

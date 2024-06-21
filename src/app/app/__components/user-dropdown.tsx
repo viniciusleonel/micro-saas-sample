@@ -12,15 +12,15 @@ import {
 import { ExitIcon, GearIcon, RocketIcon } from "@radix-ui/react-icons";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
+import ThemeSwitch from "../settings/theme/__components/theme-switch";
 
 type UserDropdownProps = {
-    user: Session['user']
-}
+    user: Session["user"];
+};
 
 export function UserDropdown({ user }: UserDropdownProps) {
-    
     if (!user) {
-        return ;
+        return;
     }
 
     return (
@@ -35,9 +35,11 @@ export function UserDropdown({ user }: UserDropdownProps) {
                             src={user.image as string}
                             alt={user.name as string}
                         />
-                        <AvatarFallback className="text-lg uppercase">{user.email?.[0]}</AvatarFallback>
+                        <AvatarFallback className="text-lg uppercase">
+                            {user.email?.[0]}
+                        </AvatarFallback>
                     </Avatar>
-                    <div className="flex flex-col flex-1 text-left space-y-1">
+                    <div className="flex flex-col flex-1 text-left space-y-1 ">
                         {user.name && (
                             <p className="text-sm font-medium leading-none">
                                 {user.name}
@@ -55,20 +57,22 @@ export function UserDropdown({ user }: UserDropdownProps) {
                 forceMount
             >
                 <DropdownMenuLabel className="font-normal">
-                    <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium leading-none">
-                            {user.name}
-                        </p>
-                        <p className="text-xs leading-none text-muted-foreground">
-                            {user.email}
-                        </p>
+                    <div className="flex justify-between items-center">
+                        <div className="flex flex-col space-y-1">
+                            <p className="text-sm font-medium leading-none">
+                                {user.name}
+                            </p>
+                            <p className="text-xs leading-none text-muted-foreground">
+                                {user.email}
+                            </p>
+                        </div>
+                        <ThemeSwitch />
                     </div>
                 </DropdownMenuLabel>
 
                 <DropdownMenuSeparator />
 
                 <DropdownMenuGroup>
-
                     <DropdownMenuItem className="flex items-center gap-2">
                         <GearIcon />
                         Configuraçes
@@ -78,10 +82,9 @@ export function UserDropdown({ user }: UserDropdownProps) {
                         <RocketIcon />
                         Upgrade
                     </DropdownMenuItem>
-
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem 
+                <DropdownMenuItem
                     className="flex items-center gap-2"
                     onClick={() => signOut()}
                 >

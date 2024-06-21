@@ -41,7 +41,7 @@ export default function ThemeSwitch({ className }: ThemeSwitchProps) {
             ) : (
                 <button onClick={() => { setTheme('dark'); playClickSound(clickOff);}} 
                 className={cn('transition duration-500 border border-yellow-400 rounded-full p-1', className)}>
-                    <SunIcon className={cn("text-yellow-400", className)} />
+                    <SunIcon className={cn("text-yellow-400 ", className)} />
                 </button>
             )}
         </div>

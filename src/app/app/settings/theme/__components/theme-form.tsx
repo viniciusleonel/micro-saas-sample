@@ -39,8 +39,8 @@ export function ThemeForm() {
         theme.setTheme(data.theme as "light" | "dark");
 
         toast({
-            title: "Success",
-            description: "Your profile has been updated successfully.",
+            title: "Sucesso",
+            description: "Seu tema foi atualizado com sucesso.",
         });
     });
 

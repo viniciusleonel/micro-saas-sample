@@ -16,7 +16,6 @@ import { usePathname } from "next/navigation";
 import { UserDropdown } from "./user-dropdown";
 import { Logo } from "@/components/logo";
 import { Session } from "next-auth";
-import ThemeSwitch from "../settings/theme/__components/theme-switch";
 
 type MainSidebarProps = {
     user: Session["user"];
@@ -74,9 +73,8 @@ export function MainSidebar({ user }: MainSidebarProps) {
                 </DashboardSidebarNav>
             </DashboardSidebarMain>
 
-            <DashboardSidebarFooter className="flex ">
+            <DashboardSidebarFooter>
                 <UserDropdown user={user} />
-                <ThemeSwitch />
             </DashboardSidebarFooter>
         </DashboardSidebar>
     );
