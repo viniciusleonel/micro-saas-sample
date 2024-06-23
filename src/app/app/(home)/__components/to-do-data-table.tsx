@@ -57,6 +57,7 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
     const [columnVisibility, setColumnVisibility] =
         React.useState<VisibilityState>({});
     const [rowSelection, setRowSelection] = React.useState({});
+    const [done, setDone] = React.useState(false);
 
     const handleDeleteToDo = async (toDo: ToDo) => {
         await deleteToDo({ id: toDo.id });
@@ -72,6 +73,7 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
     const handleMarkAsDone = async (toDo: ToDo) => {
         const doneAt = toDo.doneAt ? null : new Date();
         await upsertToDo({ id: toDo.id, doneAt });
+        setDone(!done);
         router.refresh();
 
         toast({
@@ -162,7 +164,7 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                             <DropdownMenuItem
                                 onClick={() => handleMarkAsDone(toDo)}
                             >
-                                Marcar como concluída
+                                {done ? "Marcar como pendente" : "Marcar como concluída"}
                             </DropdownMenuItem>
                             <DropdownMenuItem
                                 onClick={() => handleDeleteToDo(toDo)}

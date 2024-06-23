@@ -10,7 +10,7 @@ export default async function AppLayout({
 
     return (
         <div className="grid grid-cols-[16rem_1fr]">
-            <MainSidebar user={session?.user} />
+            {session?.user && <MainSidebar user={session.user} />}
 
             <main>{children}</main>
         </div>
