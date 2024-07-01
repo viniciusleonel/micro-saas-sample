@@ -87,12 +87,12 @@ export function AuthForm() {
                         {form.formState.isSubmitting ? "Sending..." : "Send Magic Link"}
                     </Button>
                 </form>
-                <Button
+                {/* <Button
                     className="w-full mt-4"
                     onClick={handleGoogleSignIn}
                 >
                     Sign in with Google
-                </Button>
+                </Button> */}
                 <Button
                     className="w-full mt-4"
                     onClick={handleGithubSignIn}
