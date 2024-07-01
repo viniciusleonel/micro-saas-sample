@@ -8,6 +8,7 @@ import { SVGProps } from "react";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { toast } from "@/components/ui/use-toast";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export function AuthForm() {
 
@@ -34,6 +35,29 @@ export function AuthForm() {
         }
     });
 
+    const handleGoogleSignIn = async () => {
+        try {
+            await signIn("google", { redirect: false });
+        } catch (error) {
+            toast({
+                title: "Erro",
+                variant: "destructive",
+                description: "Ocorreu um erro ao fazer login com o Google.",
+            });
+        }
+    };
+
+    const handleGithubSignIn = async () => {
+        try {
+            await signIn("github", { redirect: false });
+        } catch (error) {
+            toast({
+                title: "Erro",
+                variant: "destructive",
+                description: "Ocorreu um erro ao fazer login com o GitHub.",
+            });
+        }
+    };
 
     return (
         <div className="flex justify-center items-center h-screen">
@@ -63,6 +87,19 @@ export function AuthForm() {
                         {form.formState.isSubmitting ? "Sending..." : "Send Magic Link"}
                     </Button>
                 </form>
+                <Button
+                    className="w-full mt-4"
+                    onClick={handleGoogleSignIn}
+                >
+                    Sign in with Google
+                </Button>
+                <Button
+                    className="w-full mt-4"
+                    onClick={handleGithubSignIn}
+                >
+                    <GitHubLogoIcon className="w-4 h-4 mr-2" />
+                    Sign in with GitHub
+                </Button>
             </div>
         </div>
     );

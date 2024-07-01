@@ -77,9 +77,9 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
         router.refresh();
 
         toast({
-            title: "Tarefa marcada como concluída",
+            title: doneAt ? "Tarefa marcada como concluída" : "Tarefa marcada como pendente",
             variant: "success",
-            description: "Sua tarefa foi marcada como concluída",
+            description: doneAt ? "Sua tarefa foi marcada como concluída" : "Sua tarefa foi marcada como pendente",
         });
     };
 
@@ -164,7 +164,7 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                             <DropdownMenuItem
                                 onClick={() => handleMarkAsDone(toDo)}
                             >
-                                {done ? "Marcar como pendente" : "Marcar como concluída"}
+                                {toDo.doneAt ? "Marcar como pendente" : "Marcar como concluída"}
                             </DropdownMenuItem>
                             <DropdownMenuItem
                                 onClick={() => handleDeleteToDo(toDo)}
