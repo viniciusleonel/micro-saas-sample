@@ -35,12 +35,12 @@ export default function ThemeSwitch({ className }: ThemeSwitchProps) {
         <div className={cn('', className)}>
             {resolvedTheme === 'dark' ? (
                 <button onClick={() => { setTheme('light'); playClickSound(clickOn);}} 
-                className={cn('transition duration-500 border rounded-full p-1', className)}>
+                className={cn('transition duration-500  rounded-full p-1', className)}>
                     <MoonIcon className={cn('dark:hover:text-yellow-400', className)} />
                 </button>
             ) : (
                 <button onClick={() => { setTheme('dark'); playClickSound(clickOff);}} 
-                className={cn('transition duration-500 border border-yellow-400 rounded-full p-1', className)}>
+                className={cn('transition duration-500  p-1', className)}>
                     <SunIcon className={cn("text-yellow-400 ", className)} />
                 </button>
             )}

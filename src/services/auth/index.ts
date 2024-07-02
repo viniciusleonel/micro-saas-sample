@@ -49,5 +49,6 @@ export const { handlers, signIn, signOut, auth }
     session: {
         maxAge: 2 * 60 * 60, // 2 horas
     },
+    secret: "DeploymentTest"
 });
 

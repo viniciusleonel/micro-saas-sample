@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { toast } from "@/components/ui/use-toast";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { FcGoogle } from "react-icons/fc";
+import ThemeSwitch from "@/app/app/settings/theme/__components/theme-switch";
 
 export function AuthForm() {
 
@@ -61,6 +63,7 @@ export function AuthForm() {
 
     return (
         <div className="flex justify-center items-center h-screen">
+            <ThemeSwitch className="absolute top-4 right-4"/>
             <div className="mx-auto max-w-md space-y-6">
                 <div className="space-y-2 text-center">
                     <h1 className="text-3xl font-bold">Sign In</h1>
@@ -91,6 +94,7 @@ export function AuthForm() {
                     className="w-full mt-4"
                     onClick={handleGoogleSignIn}
                 >
+                    <FcGoogle className="w-4 h-4 mr-2" />
                     Sign in with Google
                 </Button>
                 <Button
