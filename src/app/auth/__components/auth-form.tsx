@@ -63,10 +63,16 @@ export function AuthForm() {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <ThemeSwitch className="absolute top-4 right-4"/>
+            <ThemeSwitch />
             <div className="mx-auto max-w-md space-y-6">
                 <div className="space-y-2 text-center">
-                    <h1 className="text-3xl font-bold">Sign In</h1>
+                    <div className="flex justify-center items-center">
+                        <h1 className="text-3xl font-bold ms-8 mx-4">
+                            Sign In
+                        </h1>
+                        <ThemeSwitch className="mt-[2px]"/>
+                    </div>
+                    
                     <p className="text-gray-500 dark:text-gray-400">
                         Enter your email to sign in with a magic link.
                     </p>

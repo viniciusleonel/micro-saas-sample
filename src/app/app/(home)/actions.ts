@@ -4,6 +4,7 @@ import { auth } from "@/services/auth";
 import { prisma } from "@/services/database";
 import { deleteToDoSchema, upsertToDoSchema } from "./schema";
 import { z } from "zod";
+import { getUserCurrentPlan } from "@/services/stripe";
 
 export async function getUserToDos() {
     const session = await auth();
@@ -26,6 +27,25 @@ export async function upsertToDo(input: z.infer<typeof upsertToDoSchema>) {
         return {
             error: "Unauthorized",
             data: null,
+        };
+    }
+
+    const plan = await getUserCurrentPlan(session.user.id);
+    const currentTodosCount = plan.quota.TASKS.current;
+    const availableTodosCount = plan.quota.TASKS.available;
+
+    if (currentTodosCount >= availableTodosCount) {
+        return {
+            
+            error: "Limite de tarefas atingido",
+            data: null,
+        };
+    } 
+
+    if (!input || Object.keys(input).length === 0) {
+        return {
+            error: "Input inválido",
+            data: null
         };
     }
 
@@ -78,7 +98,10 @@ export async function upsertToDo(input: z.infer<typeof upsertToDoSchema>) {
         },
     });
 
-    return toDo;
+    return {
+        error: null,
+        data: toDo,
+    };
 }
 
 export async function deleteToDo(input: z.infer<typeof deleteToDoSchema>) {

@@ -13,6 +13,7 @@ import { ExitIcon, GearIcon, RocketIcon } from "@radix-ui/react-icons";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import ThemeSwitch from "../settings/theme/__components/theme-switch";
+import Link from "next/link";
 
 type UserDropdownProps = {
     user: Session["user"];
@@ -75,12 +76,16 @@ export function UserDropdown({ user }: UserDropdownProps) {
                 <DropdownMenuGroup>
                     <DropdownMenuItem className="flex items-center gap-2">
                         <GearIcon />
-                        Configuraçes
+                        <Link href="/app/settings">
+                            Configuraçes
+                        </Link>
                     </DropdownMenuItem>
 
                     <DropdownMenuItem className="flex items-center gap-2">
                         <RocketIcon />
-                        Upgrade
+                        <Link href="/app/settings/billing">
+                            Upgrade
+                        </Link>
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />

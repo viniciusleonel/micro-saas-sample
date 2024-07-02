@@ -49,16 +49,25 @@ export function ToDoUpsertSheet({
     });
 
     const onSubmit = form.handleSubmit(async (data: z.infer<typeof upsertToDoSchema>) => {
-        await upsertToDo(data);
-        router.refresh();
         
-        ref.current?.click();
+        const result = await upsertToDo(data);
+        if (result.data === null) {
+            toast({
+                title: "Limite de tarefas atingido",
+                description: "Você atingiu o limite de tarefas. Atualize sua assinatura para continuar.",
+                variant: "destructive",
+            });
+        } else {
+            router.refresh();
+            toast({
+                title: "Tarefa atualizada",
+                description: "Sua tarefa foi atualizada",
+                variant: "success",
+            });
+        }
+        
 
-        toast({
-            title: "Tarefa atualizada",
-            description: "Sua tarefa foi atualizada",
-            variant: "success",
-        });
+        
     });
 
     return (
