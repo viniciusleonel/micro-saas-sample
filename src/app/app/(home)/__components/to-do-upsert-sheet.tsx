@@ -46,6 +46,7 @@ export function ToDoUpsertSheet({
 
     const form = useForm<z.infer<typeof upsertToDoSchema>>({
         resolver: zodResolver(upsertToDoSchema),
+        defaultValues: defaultValue || { title: "" },
     });
 
     const onSubmit = form.handleSubmit(async (data: z.infer<typeof upsertToDoSchema>) => {
@@ -64,6 +65,7 @@ export function ToDoUpsertSheet({
                 description: "Sua tarefa foi atualizada",
                 variant: "success",
             });
+            form.reset({ title: "" });
         }
         
 

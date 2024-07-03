@@ -90,7 +90,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 cursor-pointer"
                     onClick={() => signOut()}
                 >
                     <ExitIcon />

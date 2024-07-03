@@ -63,7 +63,6 @@ export function AuthForm() {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <ThemeSwitch />
             <div className="mx-auto max-w-md space-y-6">
                 <div className="space-y-2 text-center">
                     <div className="flex justify-center items-center">

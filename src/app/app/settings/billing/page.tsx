@@ -14,9 +14,7 @@ import { getUserCurrentPlan } from "@/services/stripe";
 
 export default async function Page() {
     const session = await auth();
-    console.log("Session:", session);
     const plan = await getUserCurrentPlan(session?.user?.id as string);
-    console.log("Plan:", plan);
 
     return (
         <form action={createCheckoutSessionAction}>
@@ -46,8 +44,14 @@ export default async function Page() {
                     </div>
                 </CardContent>
                 <CardFooter className="flex items-center justify-between border-t border-border pt-6">
-                    <span>Para um maior limite, assine o PRO</span>
-                    <Button type="submit">Assine por R$9/ mês</Button>
+                    {plan.name === "pro" ? (
+                        <span>Você já está no plano PRO</span>
+                    ) : (
+                        <>
+                            <span>Para um maior limite, assine o PRO</span>
+                            <Button type="submit">Assine por R$9/ mês</Button>
+                        </>
+                    )}
                 </CardFooter>
             </Card>
         </form>

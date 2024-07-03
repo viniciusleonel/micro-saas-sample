@@ -153,20 +153,22 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Ações</DropdownMenuLabel>
-                            <DropdownMenuItem
+                            {/* <DropdownMenuItem
                                 onClick={() =>
                                     navigator.clipboard.writeText(toDo.id)
                                 }
                             >
                                 Copiar ID da tarefa
                             </DropdownMenuItem>
-                            <DropdownMenuSeparator />
+                            <DropdownMenuSeparator /> */}
                             <DropdownMenuItem
+                                className="cursor-pointer"
                                 onClick={() => handleMarkAsDone(toDo)}
                             >
                                 {toDo.doneAt ? "Marcar como pendente" : "Marcar como concluída"}
                             </DropdownMenuItem>
                             <DropdownMenuItem
+                                className="cursor-pointer"
                                 onClick={() => handleDeleteToDo(toDo)}
                             >
                                 Excluir
