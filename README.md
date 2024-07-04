@@ -22,8 +22,8 @@ O micro-saas também utiliza o Stripe para processar pagamentos, permitindo que 
 -   **React**: Biblioteca para criação de interfaces de usuário.
 -   **Tailwind CSS**: Framework CSS para estilização da interface do usuário.
 -   **React Hook Form**: Biblioteca para gerenciamento de formulários.
--   **Shadcn/UI**: Biblioteca de componentes de interface do usuário acessíveis e personalizáveis.
 -   **Prisma**: ORM para interagir com o banco de dados.
+-   **Shadcn/UI**: Biblioteca de componentes de interface do usuário acessíveis e personalizáveis.
 -   **Zod**: Biblioteca para validação de esquemas.
 -   **Radix UI**: Componentes de interface do usuário acessíveis e personalizáveis.
 -   **Stripe**: Plataforma de pagamentos para o micro-saas.

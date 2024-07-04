@@ -6,9 +6,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "../database";
 import { createStripeCustomer } from "../stripe";
 
-export const { handlers, signIn, signOut, auth }
-
-= NextAuth({
+export const { handlers, signIn, signOut, auth } = NextAuth({
     pages: {
         signIn: "/auth",
         signOut: "/auth",
@@ -40,10 +38,16 @@ export const { handlers, signIn, signOut, auth }
     ],
     events: {
         createUser: async (message) => {
-            await createStripeCustomer({
-                name: message.user.name as string,
-                email: message.user.email as string,
+            const existingUser = await prisma.user.findUnique({
+                where: { email: message.user.email ?? undefined },
             });
+
+            if (!existingUser) {
+                await createStripeCustomer({
+                    name: message.user.name as string,
+                    email: message.user.email as string,
+                });
+            }
         },
     },
     session: {
@@ -51,4 +55,3 @@ export const { handlers, signIn, signOut, auth }
     },
     secret: "DeploymentTest"
 });
-
