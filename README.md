@@ -32,15 +32,41 @@ O micro-saas também utiliza o Stripe para processar pagamentos, permitindo que 
 -   **GitHub OAuth**: Serviço de autenticação com o GitHub.
 -   **Next-Auth**: Biblioteca para gerenciamento de autenticação.
 
-
 ## Como Utilizar
+
+<!-- ### Utilizando Docker
+
+### Pré-requisitos
+
+-   Docker instalado na máquina.
+
+Login com Magic Link não funcionará com o Docker, pois é necessário configurar as variáveis de ambiente no arquivo `.env` e utilizar o Mailtrap para o envio de email.
+
+
+
+1. **Baixe a imagem do Docker Hub:**
+
+    ```bash
+    docker pull viniciusleonel/micro-saas-sample:sqlite
+    ```
+
+2. **Inicie o container:**
+
+    ```bash
+    docker run -p 3000:3000 viniciusleonel/micro-saas-sample:sqlite
+    ```
+    
+3. **Acesse a aplicação:**
+
+    Abra o navegador e vá para `http://localhost:3000`. -->
+
+### Passos para Rodar o Micro-SaaS
 
 ### Pré-requisitos
 
 -   Node.js instalado na máquina.
--   Banco de dados configurado e rodando (ex: PostgreSQL).
-
-### Passos para Rodar o Micro-SaaS
+-   Git instalado na máquina.
+-   Necessário configurar as variáveis de ambiente no arquivo `.env` para utilizar o magic link com o Mailtrap, Google, GitHub e Stripe.
 
 1. **Clone o repositório:**
 

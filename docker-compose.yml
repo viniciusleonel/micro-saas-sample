@@ -28,3 +28,11 @@ services:
     volumes:
       - .:/app
     command: npm run dev
+
+  stripe-listener:
+    image: stripe/stripe-cli
+    command: listen --forward-to app:3000/api/webhooks
+    environment:
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+    depends_on:
+      - app
