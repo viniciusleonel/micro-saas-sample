@@ -34,31 +34,6 @@ O micro-saas também utiliza o Stripe para processar pagamentos, permitindo que 
 
 ## Como Utilizar
 
-<!-- ### Utilizando Docker
-
-### Pré-requisitos
-
--   Docker instalado na máquina.
-
-Login com Magic Link não funcionará com o Docker, pois é necessário configurar as variáveis de ambiente no arquivo `.env` e utilizar o Mailtrap para o envio de email.
-
-
-
-1. **Baixe a imagem do Docker Hub:**
-
-    ```bash
-    docker pull viniciusleonel/micro-saas-sample:sqlite
-    ```
-
-2. **Inicie o container:**
-
-    ```bash
-    docker run -p 3000:3000 viniciusleonel/micro-saas-sample:sqlite
-    ```
-    
-3. **Acesse a aplicação:**
-
-    Abra o navegador e vá para `http://localhost:3000`. -->
 
 ### Passos para Rodar o Micro-SaaS
 
@@ -119,13 +94,6 @@ Login com Magic Link não funcionará com o Docker, pois é necessário configur
 
     Abra o navegador e vá para `http://localhost:3000`.
 
-### Estrutura do Projeto
-
--   **src/app**: Contém os componentes e páginas da aplicação.
--   **src/services**: Contém os serviços de autenticação e interação com o banco de dados.
--   **src/components**: Contém componentes reutilizáveis da interface do usuário.
--   **src/schema**: Contém os esquemas de validação Zod.
--   **src/types**: Contém definições de tipos TypeScript.
 
 ### Imagens do Micro-SaaS
 
