@@ -18,7 +18,8 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-
+import { ToDoUpsertSheet } from "@/app/app/(home)/__components/to-do-upsert-sheet";
+import { PlusIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -31,6 +32,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import {
     Table,
     TableBody,
     TableCell,
@@ -41,7 +53,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ToDo } from "../types";
 import { useRouter } from "next/navigation";
-import { deleteToDo, upsertToDo } from "../actions";
+import { deleteAllToDos, deleteToDo, upsertToDo } from "../actions";
 import { toast } from "@/components/ui/use-toast";
 
 type ToDoDataTableProps = {
@@ -70,6 +82,17 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
         });
     };
 
+    const handleDeleteAllToDos = async () => {
+        await deleteAllToDos();
+        router.refresh();
+
+        toast({
+            title: "Tarefas excluídas",
+            variant: "success",
+            description: "Todas as tarefas foram excluídas com sucesso",
+        });
+    };
+
     const handleMarkAsDone = async (toDo: ToDo) => {
         const doneAt = toDo.doneAt ? null : new Date();
         await upsertToDo({ id: toDo.id, doneAt });
@@ -77,9 +100,13 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
         router.refresh();
 
         toast({
-            title: doneAt ? "Tarefa marcada como concluída" : "Tarefa marcada como pendente",
+            title: doneAt
+                ? "Tarefa marcada como concluída"
+                : "Tarefa marcada como pendente",
             variant: "success",
-            description: doneAt ? "Sua tarefa foi marcada como concluída" : "Sua tarefa foi marcada como pendente",
+            description: doneAt
+                ? "Sua tarefa foi marcada como concluída"
+                : "Sua tarefa foi marcada como pendente",
         });
     };
 
@@ -165,7 +192,9 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                                 className="cursor-pointer"
                                 onClick={() => handleMarkAsDone(toDo)}
                             >
-                                {toDo.doneAt ? "Marcar como pendente" : "Marcar como concluída"}
+                                {toDo.doneAt
+                                    ? "Marcar como pendente"
+                                    : "Marcar como concluída"}
                             </DropdownMenuItem>
                             <DropdownMenuItem
                                 className="cursor-pointer"
@@ -201,7 +230,7 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
 
     return (
         <div className="w-full">
-            <div className="flex items-center py-4">
+            <div className="flex items-center space-x-2 py-4 justify-between">
                 <Input
                     placeholder="Filtrar títulos..."
                     value={
@@ -217,14 +246,47 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                     className="max-w-sm"
                 />
                 <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button
-                            variant="outline"
-                            className="ml-auto"
-                        >
-                            Colunas <ChevronDownIcon className="ml-2 h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
+                    <div className="flex items-center space-x-2 justify-end">
+                        <ToDoUpsertSheet>
+                            <Button
+                                className="ml-auto"
+                                variant="outline"
+                            >
+                                <PlusIcon className="w-4 h-4 mr-3" />
+                                Add todo
+                            </Button>
+                        </ToDoUpsertSheet>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button
+                                    variant="destructive"
+                                    className="ml-auto"
+                                >
+                                    Limpar
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                                <DialogHeader>
+                                    <DialogTitle>Limpar tarefas</DialogTitle>
+                                    <DialogDescription>
+                                        Tem certeza que deseja limpar todas as
+                                        tarefas?
+                                    </DialogDescription>
+                                </DialogHeader>
+
+                                <DialogFooter>
+                                    <DialogClose asChild>
+                                        <Button
+                                            type="submit"
+                                            onClick={handleDeleteAllToDos}
+                                        >
+                                            Limpar
+                                        </Button>
+                                    </DialogClose>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
+                    </div>
                     {/* <ToDoUpsertSheet>
                         <Button variant="outline" >Adicionar tarefa</Button>
                     </ToDoUpsertSheet> */}
@@ -260,10 +322,10 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
-                                                    header.column.columnDef
-                                                        .header,
-                                                    header.getContext()
-                                                )}
+                                                      header.column.columnDef
+                                                          .header,
+                                                      header.getContext()
+                                                  )}
                                         </TableHead>
                                     );
                                 })}
@@ -327,6 +389,5 @@ export function ToDoDataTable({ data }: ToDoDataTableProps) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
-

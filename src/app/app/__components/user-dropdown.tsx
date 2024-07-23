@@ -29,7 +29,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
             <DropdownMenuTrigger asChild>
                 <Button
                     variant="link"
-                    className="relative h-8 flex items-center space-x-2 !px-0 justify-between w-full"
+                    className="relative h-8 flex items-center space-x-2 !px-0 justify-between w-full "
                 >
                     <Avatar className="h-9 w-9">
                         <AvatarImage
@@ -40,27 +40,31 @@ export function UserDropdown({ user }: UserDropdownProps) {
                             {user.email?.[0]}
                         </AvatarFallback>
                     </Avatar>
-                    <div className="flex flex-col flex-1 text-left space-y-1 ">
+                    <div className=" flex flex-col flex-1 text-left space-y-1  w-[80%] ">
                         {user.name && (
-                            <p className="text-sm font-medium leading-none">
+                            <div className="overflow-hidden ">
+                                    <p className="text-sm font-medium leading-none overflow-hidden text-ellipsis">
                                 {user.name}
                             </p>
-                        )}
-                        <p className="text-xs leading-none text-muted-foreground">
+                        
+                            </div>
+                            )}
+                        <p className="text-xs leading-none  text-muted-foreground">
                             {user.email}
                         </p>
                     </div>
                 </Button>
             </DropdownMenuTrigger>
+            
             <DropdownMenuContent
-                className="w-56"
+                className="w-56 ms-4 mb-2"
                 align="end"
                 forceMount
             >
                 <DropdownMenuLabel className="font-normal">
                     <div className="flex justify-between items-center">
-                        <div className="flex flex-col space-y-1">
-                            <p className="text-sm font-medium leading-none">
+                        <div className="flex flex-col space-y-1 ">
+                            <p className="text-sm font-medium leading-none overflow-hidden text-ellipsis">
                                 {user.name}
                             </p>
                             <p className="text-xs leading-none text-muted-foreground">

@@ -66,8 +66,8 @@ export function MainSidebar({ user }: MainSidebarProps) {
                         <DashboardSidebarNavLink href="/">
                             Precisa de ajuda?
                         </DashboardSidebarNavLink>
-                        <DashboardSidebarNavLink href="/">
-                            Site{" "}
+                        <DashboardSidebarNavLink href="https://viniciusleonel.dev.br/">
+                            Site
                         </DashboardSidebarNavLink>
                     </DashboardSidebarNavMain>
                 </DashboardSidebarNav>

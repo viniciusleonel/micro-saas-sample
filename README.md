@@ -22,8 +22,8 @@ O micro-saas também utiliza o Stripe para processar pagamentos, permitindo que 
 -   **React**: Biblioteca para criação de interfaces de usuário.
 -   **Tailwind CSS**: Framework CSS para estilização da interface do usuário.
 -   **React Hook Form**: Biblioteca para gerenciamento de formulários.
--   **Prisma**: ORM para interagir com o banco de dados.
 -   **Shadcn/UI**: Biblioteca de componentes de interface do usuário acessíveis e personalizáveis.
+-   **Prisma**: ORM para interagir com o banco de dados.
 -   **Zod**: Biblioteca para validação de esquemas.
 -   **Radix UI**: Componentes de interface do usuário acessíveis e personalizáveis.
 -   **Stripe**: Plataforma de pagamentos para o micro-saas.
@@ -32,16 +32,15 @@ O micro-saas também utiliza o Stripe para processar pagamentos, permitindo que 
 -   **GitHub OAuth**: Serviço de autenticação com o GitHub.
 -   **Next-Auth**: Biblioteca para gerenciamento de autenticação.
 
+
 ## Como Utilizar
-
-
-### Passos para Rodar o Micro-SaaS
 
 ### Pré-requisitos
 
 -   Node.js instalado na máquina.
--   Git instalado na máquina.
--   Necessário configurar as variáveis de ambiente no arquivo `.env` para utilizar o magic link com o Mailtrap, Google, GitHub e Stripe.
+-   Banco de dados configurado e rodando (ex: PostgreSQL).
+
+### Passos para Rodar o Micro-SaaS
 
 1. **Clone o repositório:**
 
@@ -90,10 +89,23 @@ O micro-saas também utiliza o Stripe para processar pagamentos, permitindo que 
     npm run dev
     ```
 
-6. **Acesse a aplicação:**
+6. **Inicie o servidor de desenvolvimento do Stripe:**
+
+    ```bash
+    stripe listen --forward-to http://localhost:3000/api/stripe/webhook
+    ```
+
+7. **Acesse a aplicação:**
 
     Abra o navegador e vá para `http://localhost:3000`.
 
+### Estrutura do Projeto
+
+-   **src/app**: Contém os componentes e páginas da aplicação.
+-   **src/services**: Contém os serviços de autenticação e interação com o banco de dados.
+-   **src/components**: Contém componentes reutilizáveis da interface do usuário.
+-   **src/schema**: Contém os esquemas de validação Zod.
+-   **src/types**: Contém definições de tipos TypeScript.
 
 ### Imagens do Micro-SaaS
 

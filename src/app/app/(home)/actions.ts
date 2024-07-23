@@ -143,3 +143,26 @@ export async function deleteToDo(input: z.infer<typeof deleteToDoSchema>) {
         data: "To-do deleted successfully",
     };
 }
+
+export async function deleteAllToDos() {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+        return {
+            error: "Unauthorized",
+            data: null,
+        };
+    }
+
+    await prisma.todo.deleteMany({
+        where: {
+            userId: session?.user?.id,
+        },
+    });
+
+    return {
+        error: null,
+        data: "All to-dos deleted successfully",
+    };
+}
+
