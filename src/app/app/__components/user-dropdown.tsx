@@ -81,7 +81,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
                     <DropdownMenuItem className="flex items-center gap-2">
                         <GearIcon />
                         <Link href="/app/settings">
-                            Configuraçes
+                            Configurações
                         </Link>
                     </DropdownMenuItem>
 
