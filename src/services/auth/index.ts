@@ -49,6 +49,6 @@ export const { handlers, signIn, signOut, auth }
     session: {
         maxAge: 2 * 60 * 60, // 2 horas
     },
-    secret: "DeploymentTest"
+    secret: process.env.NEXT_PUBLIC_APP_URL
 });
 
