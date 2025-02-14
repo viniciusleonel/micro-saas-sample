@@ -19,7 +19,7 @@ export default async function Page() {
     console.log(plan);
 
     return (
-        <form action={createCheckoutSessionAction}>
+        <form onSubmit={createCheckoutSessionAction}>
             <Card>
                 <CardHeader className="border-b border-border">
                     <CardTitle>Uso do Plano</CardTitle>
