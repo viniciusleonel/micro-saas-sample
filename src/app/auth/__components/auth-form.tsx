@@ -72,11 +72,11 @@ export function AuthForm() {
                         <ThemeSwitch className="mt-[2px]"/>
                     </div>
                     
-                    <p className="text-gray-500 dark:text-gray-400">
+                    {/* <p className="text-gray-500 dark:text-gray-400">
                         Enter your email to sign in with a magic link.
-                    </p>
+                    </p> */}
                 </div>
-                <form className="space-y-4" onSubmit={handleSubmit}>
+                {/* <form className="space-y-4" onSubmit={handleSubmit}>
                     <div className="space-y-2">
                         <Label htmlFor="email">Email</Label>
                         <Input
@@ -94,7 +94,7 @@ export function AuthForm() {
                     >
                         {form.formState.isSubmitting ? "Sending..." : "Send Magic Link"}
                     </Button>
-                </form>
+                </form> */}
                 <Button
                     className="w-full mt-4"
                     onClick={handleGoogleSignIn}
