@@ -99,6 +99,15 @@ O micro-saas também utiliza o Stripe para processar pagamentos, permitindo que 
 
     Abra o navegador e vá para `http://localhost:3000`.
 
+
+8. **Passo extra: Efetuar checkout**
+
+    Ao entrar na página de checkout, a Stripe fornece um cartão para teste que pode ser utilizado:
+    Número: 4242 4242 4242 4242
+    Válidade: Qualquer data futura
+    CVC: 123
+
+
 ### Estrutura do Projeto
 
 -   **src/app**: Contém os componentes e páginas da aplicação.
@@ -106,6 +115,9 @@ O micro-saas também utiliza o Stripe para processar pagamentos, permitindo que 
 -   **src/components**: Contém componentes reutilizáveis da interface do usuário.
 -   **src/schema**: Contém os esquemas de validação Zod.
 -   **src/types**: Contém definições de tipos TypeScript.
+
+### Obs:
+    No momento, a opção de login com email está desativada em produção.
 
 ### Imagens do Micro-SaaS
 
