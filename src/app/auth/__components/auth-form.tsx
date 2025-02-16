@@ -1,10 +1,7 @@
 "use client"
 
-/* eslint-disable react/no-unescaped-entities */
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { SVGProps } from "react";
+import { SVGProps, useState } from "react";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { toast } from "@/components/ui/use-toast";
@@ -13,6 +10,8 @@ import { FcGoogle } from "react-icons/fc";
 import ThemeSwitch from "@/app/app/settings/theme/__components/theme-switch";
 
 export function AuthForm() {
+
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const form = useForm()
 
@@ -38,6 +37,7 @@ export function AuthForm() {
     });
 
     const handleGoogleSignIn = async () => {
+        setIsSubmitting(true)
         try {
             await signIn("google", { redirect: false });
         } catch (error) {
@@ -47,9 +47,13 @@ export function AuthForm() {
                 description: "Ocorreu um erro ao fazer login com o Google.",
             });
         }
+        finally {
+            setIsSubmitting(false)
+        }
     };
 
     const handleGithubSignIn = async () => {
+        setIsSubmitting(true)
         try {
             await signIn("github", { redirect: false });
         } catch (error) {
@@ -58,6 +62,9 @@ export function AuthForm() {
                 variant: "destructive",
                 description: "Ocorreu um erro ao fazer login com o GitHub.",
             });
+        }
+        finally {
+            setIsSubmitting(false)
         }
     };
 
@@ -96,6 +103,7 @@ export function AuthForm() {
                     </Button>
                 </form> */}
                 <Button
+                    disabled={isSubmitting}
                     className="w-full mt-4"
                     onClick={handleGoogleSignIn}
                 >
@@ -103,6 +111,7 @@ export function AuthForm() {
                     Sign in with Google
                 </Button>
                 <Button
+                    disabled={isSubmitting}
                     className="w-full mt-4"
                     onClick={handleGithubSignIn}
                 >
