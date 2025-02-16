@@ -4,7 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 // Define a função middleware que será usada para gerenciar redirecionamentos com base no estado de autenticação
 export function middleware(request: NextRequest) {
     // Obtém o token de autenticação dos cookies da requisição
-    const token = request.cookies.get('authjs.session-token');
+    const token = request.cookies.get('authjs.session-token') ||
+                    request.cookies.get('__Secure-authjs.session-token');
     // Obtém o caminho atual da URL acessada
     const pathname = request.nextUrl.pathname;
     
