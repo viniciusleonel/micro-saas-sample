@@ -4,14 +4,11 @@ import { auth } from "@/services/auth";
 import { createCheckoutSession } from "@/services/stripe";
 import { redirect } from "next/navigation";
 
-export async function createCheckoutSessionAction() {
+export async function createCheckoutSessionAction(): Promise<void> {
     const session = await auth();
 
     if (!session?.user?.id) {
-        return {
-            error: "Not authorized",
-            data: null,
-        };
+        throw new Error("Not authorized");
     }
 
     const checkoutSession = await createCheckoutSession(
@@ -20,6 +17,8 @@ export async function createCheckoutSessionAction() {
         session.user.stripeSubscriptionId as string
     );
 
-    if (!checkoutSession.url) return;
-    redirect(checkoutSession.url);
+    if (!checkoutSession.url) {
+        throw new Error("Failed to create checkout session");
+    };
+    return redirect(checkoutSession.url);
 }

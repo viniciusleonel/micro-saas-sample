@@ -11,15 +11,14 @@ import { Progress } from "@/components/ui/progress";
 import { createCheckoutSessionAction } from "./actions";
 import { auth } from "@/services/auth";
 import { getUserCurrentPlan } from "@/services/stripe";
+import { useState } from "react";
 
 export default async function Page() {
     const session = await auth();
     const plan = await getUserCurrentPlan(session?.user?.id as string);
 
-    console.log(plan);
-
     return (
-        <form onSubmit={createCheckoutSessionAction}>
+        <form action={createCheckoutSessionAction}>
             <Card>
                 <CardHeader className="border-b border-border">
                     <CardTitle>Uso do Plano</CardTitle>
@@ -51,7 +50,11 @@ export default async function Page() {
                     ) : (
                         <>
                             <span>Para um maior limite, assine o PRO</span>
-                            <Button type="submit">Assine por R$9/ mês</Button>
+                            <Button
+                                type="submit"
+                            >
+                                Assine por R$9/ mês
+                            </Button>
                         </>
                     )}
                 </CardFooter>
